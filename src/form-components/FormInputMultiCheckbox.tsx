@@ -4,18 +4,22 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Controller } from "react-hook-form";
 import { FormInputProps } from "./FormInputProps";
 
 const options = [
   {
-    label: "Checkbox Option 1",
-    value: "1",
+    label: "Parents",
+    value: "Parents",
   },
   {
-    label: "Checkbox Option 2",
-    value: "2",
+    label: "Brother",
+    value: "Brother",
+  },
+  {
+    label: "Sister",
+    value: "Sister",
   },
 ];
 
@@ -42,7 +46,7 @@ export const FormInputMultiCheckbox: React.FC<FormInputProps> = ({
   }, [selectedItems]);
 
   return (
-    <FormControl size={"small"} variant={"outlined"}>
+    <FormControl margin="normal" variant="outlined">
       <FormLabel component="legend">{label}</FormLabel>
 
       <div>
@@ -52,7 +56,10 @@ export const FormInputMultiCheckbox: React.FC<FormInputProps> = ({
               control={
                 <Controller
                   name={name}
-                  render={({}) => {
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => {
                     return (
                       <Checkbox
                         checked={selectedItems.includes(option.value)}

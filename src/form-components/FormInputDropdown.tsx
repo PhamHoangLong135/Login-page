@@ -1,16 +1,24 @@
 import React from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import { useFormContext, Controller } from "react-hook-form";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
+import { Controller } from "react-hook-form";
 import { FormInputProps } from "./FormInputProps";
 
 const options = [
   {
-    label: "Dropdown Option 1",
-    value: "1",
+    label: "None",
+    value: "",
   },
   {
-    label: "Dropdown Option 2",
-    value: "2",
+    label: "Watching TV",
+    value: "Watching TV",
+  },
+  {
+    label: "Play game",
+    value: "Play game",
+  },
+  {
+    label: "Play fooball",
+    value: "Play fooball",
   },
 ];
 
@@ -28,19 +36,23 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
       );
     });
   };
-
   return (
-    <FormControl size={"small"}>
+    <FormControl sx={{ mt: 3, mr: 4, minWidth: 250 }} variant="standard" >
       <InputLabel>{label}</InputLabel>
       <Controller
-        render={({ field: { onChange, value } }) => (
-          <Select onChange={onChange} value={value}>
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <Select
+            onChange={onChange}
+            value={value}
+            error={!!error}
+          >
             {generateSingleOptions()}
           </Select>
         )}
         control={control}
         name={name}
-      />
+        />
+      {/* <FormHelperText>{error ? error.message : null}</FormHelperText> */}
     </FormControl>
   );
 };
